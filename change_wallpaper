@@ -11,7 +11,7 @@ gnome_command = '''
 			PID=$(pgrep gnome-session-c)
   			export DBUS_SESSION_BUS_ADDRESS=$(grep -z DBUS_SESSION_BUS_ADDRESS /proc/$PID/environ|cut -d= -f2-)
   			gsettings set org.gnome.desktop.background picture-uri "file://%s"
-'''
+''' 
 kde_command = '''
 			dbus-send --session --dest=org.kde.plasmashell --type=method_call /PlasmaShell org.kde.PlasmaShell.evaluateScript 'string:
   			var Desktops = desktops();
@@ -23,12 +23,12 @@ kde_command = '''
 '''
 	
 if "gnome" in session:
-    wall_dir = "/home/akash/wallpaper/gnome"
+    wall_dir = "/path/to/your/wallpaper_folder"  #change this to your path
     img = get_random_file(wall_dir)
     os.system(gnome_command%img)
 		
 		
 else :
-    wall_dir = "/home/akash/wallpaper/kde"
+    wall_dir = "/path/to/your/wallpaper_folder"  #change this to your path
     img = get_random_file(wall_dir)
     os.system(kde_command%img)
