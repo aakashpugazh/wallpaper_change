@@ -1,0 +1,34 @@
+#!/bin/python3
+import os,random,subprocess
+session = subprocess.getoutput("echo $DESKTOP_SESSION")
+def get_random_file(wall_dir):
+	os.chdir(wall_dir)
+	choices = os.listdir(wall_dir)
+	selection = random.choice(choices)
+	file_ =  os.path.abspath(selection)
+	return file_
+gnome_command = '''
+			PID=$(pgrep gnome-session-c)
+  			export DBUS_SESSION_BUS_ADDRESS=$(grep -z DBUS_SESSION_BUS_ADDRESS /proc/$PID/environ|cut -d= -f2-)
+  			gsettings set org.gnome.desktop.background picture-uri "file://%s"
+'''
+kde_command = '''
+			dbus-send --session --dest=org.kde.plasmashell --type=method_call /PlasmaShell org.kde.PlasmaShell.evaluateScript 'string:
+  			var Desktops = desktops();
+  			for (i=0;i<Desktops.length;i++){
+				d = Desktops[i];
+				d.wallpaperPlugin = "org.kde.image";
+				d.currentConfigGroup = Array("Wallpaper","org.kde.image","General");
+				d.writeConfig("Image","file://%s");}'
+'''
+	
+if "gnome" in session:
+    wall_dir = "/home/akash/wallpaper/gnome"
+    img = get_random_file(wall_dir)
+    os.system(gnome_command%img)
+		
+		
+else :
+    wall_dir = "/home/akash/wallpaper/kde"
+    img = get_random_file(wall_dir)
+    os.system(kde_command%img)
