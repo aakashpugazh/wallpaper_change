@@ -2,6 +2,7 @@
 print("*****************************\nmake sure your wallpaper folder not contains other than image files\n*****************************")
 import os,random,subprocess
 session = subprocess.getoutput("echo $DESKTOP_SESSION")
+#wall_dir = /path/to/folder  #uncomment this if you`re same folder 
 def get_random_file(wall_dir):
 	os.chdir(wall_dir)
 	choices = os.listdir(wall_dir)
@@ -24,12 +25,12 @@ kde_command = '''
 '''
 	
 if "gnome" in session:
-    wall_dir = "/path/to/your/wallpaper_folder"  #change this to your path
+    wall_dir = "/path/to/your/wallpaper_folder"  #comment this for same folder
     img = get_random_file(wall_dir)
     os.system(gnome_command%img)
 		
 		
 else :
-    wall_dir = "/path/to/your/wallpaper_folder"  #change this to your path
+    wall_dir = "/path/to/your/wallpaper_folder"  #comment this for same same folder
     img = get_random_file(wall_dir)
     os.system(kde_command%img)
