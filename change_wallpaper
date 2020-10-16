@@ -1,4 +1,5 @@
 #!/bin/python3
+print("*****************************\nmake sure your wallpaper folder not contains other than image files\n*****************************")
 import os,random,subprocess
 session = subprocess.getoutput("echo $DESKTOP_SESSION")
 def get_random_file(wall_dir):
